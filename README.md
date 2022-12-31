@@ -66,3 +66,39 @@ import * as bootstrap from 'bootstrap'
 
 ### Now first build and then start the webServer, and watch the result
 I have also added an override file , which you can override the Variables of Bootstrap,Note that it must be imported before the actual Bootstrap
+
+### Now we Want to make a seperate bundled file for our css :
+we need this plugin
+```
+npm install --save-dev mini-css-extract-plugin
+```
+and change the Webpack.Config :
+```
+--- a/webpack/webpack.config.js
++++ b/webpack/webpack.config.js
+@@ -1,8 +1,10 @@
++const miniCssExtractPlugin = require('mini-css-extract-plugin')
+ const path = require('path')
+ 
+ module.exports = {
+   mode: 'development',
+   entry: './src/js/main.js',
++  plugins: [new miniCssExtractPlugin()],
+   output: {
+     filename: "main.js",
+     path: path.resolve(__dirname, "dist"),
+@@ -18,8 +20,8 @@ module.exports = {
+         test: /\.(scss)$/,
+         use: [
+           {
+-            // Adds CSS to the DOM by injecting a `<style>` tag
+-            loader: 'style-loader'
++            // Extracts CSS for each JS file that includes CSS
++            loader: miniCssExtractPlugin.loader
+           },
+           {
+```
+DON'T FORGET TO LINK TO THE NEW MAIN.CSS FILE :
+```
+<link rel="stylesheet" href="./main.css">
+```
