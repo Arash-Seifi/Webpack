@@ -1,36 +1,68 @@
 # Bootstrap
-Webpack is a free and open-source module bundler for JavaScript. It is made primarily for JavaScript, but it can transform front-end assets such as HTML, CSS, and images if the corresponding loaders are included. Webpack takes modules with dependencies and generates static assets representing those modules.
+Bootstrap is a free and open-source CSS framework directed at responsive, mobile-first front-end web development. It contains HTML, CSS and JavaScript-based design templates for typography, forms, buttons, navigation, and other interface components.
 
-First we start by making our "package.json" file: 
-```
-npm init -y
-```
-Now we install our packages(webpack and webpack-cli):
-```
-npm install --save-dev webpack webpack-cli
-```
-NOTE: if you see "npm i -D webpack webpack-cli" , it is the same but with their shortcuts
+### Quick git Tips:
+To see local branches, run this command: ```git branch```
 
-Now in your root make an "index.html" file ,a src folder and a "index.js" inside your src folder ,and a "webpack.config.js" file
+To see remote branches, run this command: ```git branch -r```
 
-![Base Folder Structure](https://user-images.githubusercontent.com/92459590/209946143-f9212a79-a7c4-48a5-9f39-cf109d2aa459.png)
+To see all local and remote branches, run this command: ```git branch -a```
 
-### Your Webpack.config.js
-![Webpack config](https://user-images.githubusercontent.com/92459590/209947678-781704e1-6492-4666-9649-f60830bdf832.png)
+To Change branch ```git checkout branch_name```
 
-You can think of environments as the context in which your code is running. During development, you're building and running the application on your local machine. Going to production is the process of making your application ready to be deployed and consumed by users.so it means that the files that you work in development must not always be used in production , so webpack makes a "dist" folder that contains the code for out production
 
-## In package.json 
-make a new script: 
+### First Change the Folder Structure : 
+![FolderStructureComplete](https://user-images.githubusercontent.com/92459590/210154090-a2f2d192-e27c-4b22-903b-dfb52af8f866.png)
+
+DON'T FORGET TO CHANGE THE LINK TO THE FILES
+
+
+### install Bootstrap and Dependencies :
 ```
-"scripts" : {
-     "build": "webpack --config webpack.config.js"
-}
+npm i --save bootstrap @popperjs/core
 ```
-The first command uses webpack and then we tell the webpack to, use the following file as its config
 
-## now if we run the command :
 ```
-npm run build
+npm i --save-dev autoprefixer css-loader postcss-loader sass sass-loader style-loader
 ```
-we see that a new folder has been added to our root(dist),and inside that, there is a bundle file that we can Link in our "index.html" file
+
+## Note
+--save : packages that are also used for production
+
+--save-dev : packages that are used in development
+
+### WebpackConfig :
+
+![WebpackConfig](https://user-images.githubusercontent.com/92459590/210154358-af50366e-5329-458f-96f2-1885907c14dc.png)
+
+Bootstrap uses scss.The browser can't understand scss , so we use loaders to change scss to css , then we use another loader to apply the css to the styles
+
+### Our new Sccript :
+
+```
+"scripts": {
+    "build": "webpack --config webpack.config.js",
+    "start": "webpack serve --config webpack.config.js"
+ },
+```
+first use the ``` npm run build ``` so you can have the bundeled "main.js".Then use ``` npm run stat ``` to start the webServer on your Configed Port(localhost:8080)
+
+### in the src/scss/styles.scss add :
+```
+// Import all of Bootstrap's CSS
+@import "~bootstrap/scss/bootstrap";
+
+```
+this is the file that we import all the bootstrap content,we then link this styles.scss file to our index.js which is our WEBPACK entry point(Where webpack looks for the file to bundle)
+
+### index.js :
+```
+// Import our custom CSS
+import '../scss/styles.scss'
+
+// Import all of Bootstrap's JS
+import * as bootstrap from 'bootstrap'
+```
+
+### Now first build and then start the webServer, and watch the result
+I have also added an override file , which you can override the Variables of Bootstrap,Note that it must be imported before the actual Bootstrap
