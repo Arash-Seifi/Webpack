@@ -120,6 +120,44 @@ Run this command to make a tailwind config file :
 npx tailwindcss init
 ```
 
+### Add a new Rule in our webpack.config.js :
 
+![Rule](https://user-images.githubusercontent.com/92459590/210171282-279e6525-63e1-402e-b5ca-ef3b967b2ceb.png)
 
+### In our src>css>styles.css :
+Import all of the tailwindcss
+```
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+```
+### Our tailwind.config.js :
+```
+module.exports = {
+  content: ['./dist/*.html'],
+  theme: {
+    extend: {},
+  },
+  variants: {
+    extend: {},
+  },
+  plugins: [],
+}
+```
+### Finally make a new postcss.config.js in Your "ROOT" :
+```
+const tailwindcss = require('tailwindcss');
+module.exports = {
+  plugins: [
+    'postcss-preset-env',
+    tailwindcss
+  ],
+};
+```
+### Link this new styles.css File in our Entry point in src>js>index.js :
+```
+// Import all Tailwindcss
+import '../css/styles.css'
+```
 
+### Run the Scripts
