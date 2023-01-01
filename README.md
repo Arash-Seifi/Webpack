@@ -102,3 +102,24 @@ DON'T FORGET TO LINK TO THE NEW MAIN.CSS FILE :
 ```
 <link rel="stylesheet" href="./main.css">
 ```
+
+# Tailwindcss
+it is just like Bootstrap but it also uses postcss , so i also add it here. 
+install the packages
+
+
+```
+npm i -D tailwindcss
+```
+
+```
+npm i -D webpack webpack-cli webpack-dev-server style-loader css-loader postcss postcss-loader postcss-preset-env
+```
+Run this command to make a tailwind config file :
+```
+npx tailwindcss init
+```
+
+
+
+
