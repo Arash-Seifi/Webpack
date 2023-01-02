@@ -36,3 +36,23 @@ From here we can add configes for each development or production in seperate Fil
 ``` npm start ``` ----> development
 
 ``` npm run build ``` ---> production
+
+# Minimize
+So there are alot of plugins to do this(You can search for them), i Use terser :
+```
+npm install terser-webpack-plugin --save-dev
+```
+
+### Our webpack.config ;
+Remmember that we minify the code for production , so add this to your production config
+
+```
+const TerserPlugin = require("terser-webpack-plugin");
+
+module.exports = {
+  optimization: {
+    minimize: true,
+    minimizer: [new TerserPlugin()],
+  },
+};
+```
