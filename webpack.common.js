@@ -1,12 +1,19 @@
 const path = require("path");
 const miniCssExtractPlugin = require('mini-css-extract-plugin')
+const htmlWebpackPlugin = require('html-webpack-plugin');
+
 
 module.exports = {
   entry: "./src/js/index.js",
-  plugins: [new miniCssExtractPlugin()],
+  plugins: [new miniCssExtractPlugin({
+    filename : 'main.[fullhash].css'
+  }),new htmlWebpackPlugin({
+    template : "./src/template.html"
+  })],
   output: {
-    filename: "main.js",
+    filename: "main.[contenthash].js",
     path: path.resolve(__dirname, "dist"),
+    assetModuleFilename: 'images/[hash][ext][query]'
   },
   module: {
     rules: [
@@ -18,7 +25,7 @@ module.exports = {
            loader: miniCssExtractPlugin.loader
           },
           {
-            loader: 'css-loader'
+            loader: 'css-loader',
           },
           {
             loader: 'postcss-loader',
@@ -34,6 +41,22 @@ module.exports = {
             loader: 'sass-loader'
           }
         ]
+      },
+      {
+        test : /\.(css)$/,
+        use : ['style-loader','css-loader','postcss-loader']
+      },
+      {
+        test : /\.(html)$/,
+        use : {
+          loader : 'html-loader',
+        }
+      },{
+        test : /\.(jpe?g|png|gif)$/,
+        type: 'asset/resource',
+        // generator: {
+        //   filename: 'static/[hash][ext][query]'
+        // }
       }
     ]
   }
