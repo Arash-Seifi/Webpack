@@ -36,3 +36,27 @@ new htmlWebpackPlugin({
   })],
 ```
 See the First Iamge
+
+### install Html-loader :
+```
+npm i -D html-loader
+```
+
+### Make a new Rule :
+```
+test : /\.html$/,
+use : ["html-loader"]
+```
+
+### Install CleanPlugin :
+We install this plugin so that we dont make duplicate files in dist
+```
+npm install --save clean-webpack-plugin
+```
+### Inside our config(Pord) :
+```
+const CleanWebpackPlugin = require('clean-webpack-plugin')
+
+plugins : [new CleanWebpackPlugin()]
+```
+
